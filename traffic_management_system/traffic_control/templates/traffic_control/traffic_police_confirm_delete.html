@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Officer</title>
+</head>
+<body>
+    <h2>Are you sure you want to delete {{ officer.name }}?</h2>
+    <p>Rank: {{ officer.rank }}</p>
+    <p>Badge Number: {{ officer.badge_number }}</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+
+    <a href="{% url 'traffic_police_list' %}">Cancel</a>
+</body>
+</html>
+<style>
+    .delete-button {
+        background-color: #ff4d4d;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .delete-button:hover {
+        background-color: #ff1a1a;
+    }
+</style>

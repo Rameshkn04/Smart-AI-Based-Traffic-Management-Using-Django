@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busy Roads Report</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #007bff;
+        }
+        h1 {
+            margin-top: 20px;
+        }
+        h2 {
+            margin-top: 40px;
+        }
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        form input, form select, form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        form button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        form button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        table th, table td {
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+        table th {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+        }
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+        @media (max-width: 768px) {
+            form, table {
+                width: 95%;
+                margin: 10px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Busy Roads Report</h1>
+    <form id="trafficForm">
+        <label for="roadName">Road Name</label>
+        <input type="text" id="roadName" placeholder="Enter road name" required>
+
+        <label for="reason">Reason for Congestion</label>
+        <input type="text" id="reason" placeholder="Enter reason" required>
+
+        <label for="date">Date</label>
+        <input type="date" id="date" required>
+
+        <label for="time">Time</label>
+        <input type="time" id="time" required>
+
+        <label for="distance">Congestion Distance (km)</label>
+        <input type="number" id="distance" step="0.1" required>
+
+        <label for="officer">Assign Officer</label>
+        <select id="officer" required>
+            <option value="" disabled selected>Select an officer</option>
+        </select>
+
+        <button type="submit">Add to Report</button>
+    </form>
+
+    <h2>Reported Busy Roads</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Road Name</th>
+                <th>Reason</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Distance (km)</th>
+                <th>Assigned Officer</th>
+            </tr>
+        </thead>
+        <tbody id="trafficTable">
+            <!-- Dynamic rows -->
+        </tbody>
+    </table>
+
+    <script>
+        // Set officer data in localStorage (for testing)
+        const officers = [
+            { name: 'John Doe', badge: '12345' },
+            { name: 'Jane Smith', badge: '67890' },
+            { name: 'Mark Johnson', badge: '11223' }
+        ];
+        localStorage.setItem('officers', JSON.stringify(officers));
+
+        const trafficForm = document.getElementById('trafficForm');
+        const officerSelect = document.getElementById('officer');
+        const trafficTable = document.getElementById('trafficTable');
+        let trafficCount = 0;
+    
+        // Set current date and time in the form inputs
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateInput = document.getElementById('date');
+            const timeInput = document.getElementById('time');
+    
+            const now = new Date();
+            dateInput.value = now.toISOString().split('T')[0]; // Set current date in YYYY-MM-DD format
+            timeInput.value = now.toTimeString().slice(0, 5); // Set current time in HH:MM format
+        });
+    
+        // Load officers from localStorage
+        const officersList = JSON.parse(localStorage.getItem('officers')) || [];
+        officersList.forEach(officer => {
+            const option = document.createElement('option');
+            option.value = officer.name;
+            option.textContent = `${officer.name} (Badge: ${officer.badge})`;
+            officerSelect.appendChild(option);
+        });
+    
+        // Handle traffic form submission
+        trafficForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const roadName = document.getElementById('roadName').value;
+            const reason = document.getElementById('reason').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const distance = document.getElementById('distance').value;
+            const officer = officerSelect.value;
+    
+            trafficCount++;
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${trafficCount}</td>
+                <td>${roadName}</td>
+                <td>${reason}</td>
+                <td>${date}</td>
+                <td>${time}</td>
+                <td>${distance}</td>
+                <td>${officer}</td>
+            `;
+            trafficTable.appendChild(row);
+    
+            trafficForm.reset();
+            // Reset date and time to current values
+            const now = new Date();
+            document.getElementById('date').value = now.toISOString().split('T')[0];
+            document.getElementById('time').value = now.toTimeString().slice(0, 5);
+        });
+    </script>
+</body>
+</html>

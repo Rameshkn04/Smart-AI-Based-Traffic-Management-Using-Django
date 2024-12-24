@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('https://cdn.continental.com/fileadmin/__imported/sites/corporate/usa/english/hubpages/10_20press/10_20press_20releases/20_20local/2021/12_27april_2021_continental_and_iteris/intelligent_infrastructure.jpg') no-repeat center center/cover; /* Background image */
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+        }
+
+        .login-container img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .login-container h2 {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 40px 15px 15px; /* Padding for input with icon */
+            border: none;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .input-group i {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .options-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .options-group label, 
+        .options-group a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .login-btn {
+            background-color: white;
+            color: #4a00e0;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .login-btn:hover {
+            background-color: #ddd;
+        }
+
+        .register-link {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        .register-link a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Add your logo -->
+        <img src="{% static 'images/traffic_icon.jpeg' %}" alt="Logo">
+
+        <h2>Login</h2>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <!-- Email Input -->
+            <div class="input-group">
+                <input type="text" name="username" placeholder="Email ID" required>
+                <i class="fas fa-envelope"></i> <!-- Email icon -->
+            </div>
+            <!-- Password Input -->
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Password" required>
+                <i class="fas fa-lock"></i> <!-- Password icon -->
+            </div>
+            <!-- Options Group -->
+            <div class="options-group">
+                <label><input type="checkbox" name="remember_me"> Remember me</label>
+                <a href="forgot-password">Forgot Password?</a>
+            </div>
+            <!-- Login Button -->
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        <p class="register-link">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    </div>
+</body>
+</html>

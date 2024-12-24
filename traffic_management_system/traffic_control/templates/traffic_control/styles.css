@@ -1,0 +1,155 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #e0e0e0;
+}
+
+.header {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+    border-bottom: 2px solid #ddd;
+}
+
+h1 {
+    margin: 0;
+    color: #333;
+}
+
+/* Intersection Styles */
+.intersection {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Roads */
+.road-horizontal {
+    position: absolute;
+    width: 100%;
+    height: 150px;
+    background-color: #333;
+}
+
+.road-vertical {
+    position: absolute;
+    height: 100%;
+    width: 150px;
+    background-color: #333;
+}
+
+/* Dashed Lane */
+.road-dashed-lane {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    width: 10px;
+    background: repeating-linear-gradient(
+        to bottom,
+        white 0%,
+        white 20%,
+        transparent 20%,
+        transparent 40%
+    );
+}
+
+/* Zebra Crossings */
+.zebra-crossing-horizontal, .zebra-crossing-vertical {
+    position: absolute;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.zebra-crossing-horizontal div {
+    width: 60px;
+    height: 10px;
+    background-color: white;
+    margin: 5px;
+}
+
+.zebra-crossing-vertical div {
+    width: 10px;
+    height: 60px;
+    background-color: white;
+    margin: 5px;
+}
+
+/* Traffic Lights */
+.traffic-light {
+    width: 50px;
+    height: 150px;
+    background-color: black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    position: absolute;
+}
+
+.traffic-light-top-left {
+    top: 20px;
+    left: 20px;
+}
+
+.traffic-light-top-right {
+    top: 20px;
+    right: 20px;
+}
+
+.traffic-light-bottom-left {
+    bottom: 20px;
+    left: 20px;
+}
+
+.traffic-light-bottom-right {
+    bottom: 20px;
+    right: 20px;
+}
+
+.light {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: gray;
+}
+
+.light.red {
+    background-color: red;
+}
+
+.light.yellow {
+    background-color: yellow;
+}
+
+.light.green {
+    background-color: green;
+}
+
+/* Calculate Button */
+.calculate-button {
+    position: absolute;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.calculate-button:hover {
+    background-color: #0056b3;
+}

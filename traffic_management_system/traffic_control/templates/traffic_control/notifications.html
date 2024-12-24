@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Notifications</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #007bff;
+        }
+
+        .notification-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .notification {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .notification:hover {
+            transform: translateY(-10px);
+        }
+
+        .notification .title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .notification .message {
+            font-size: 16px;
+            color: #555;
+            margin: 10px 0;
+        }
+
+        .notification .date {
+            font-size: 14px;
+            color: #888;
+            align-self: flex-end;
+        }
+
+        .notification.warning {
+            border-left: 5px solid #f39c12;
+        }
+
+        .notification.info {
+            border-left: 5px solid #3498db;
+        }
+
+        .notification.success {
+            border-left: 5px solid #2ecc71;
+        }
+
+        .notification.error {
+            border-left: 5px solid #e74c3c;
+        }
+
+        .notification .icon {
+            font-size: 25px;
+            margin-right: 10px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            color: #007bff;
+            padding: 10px;
+            margin: 0 5px;
+            border-radius: 5px;
+            border: 1px solid #007bff;
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .notification-container {
+                width: 90%;
+            }
+
+            .notification {
+                padding: 10px;
+            }
+
+            .pagination a {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Traffic Notifications</h1>
+
+    <div class="notification-container">
+
+        <!-- Sample Notification 1 -->
+        <div class="notification success">
+            <div class="title">
+                <span class="icon">✔</span> Incident Resolved
+            </div>
+            <div class="message">
+                The traffic congestion on Elm Street has been cleared. The road is now open for regular traffic.
+            </div>
+            <div class="date">
+                Date: 2024-12-23 | Time: 3:45 PM
+            </div>
+        </div>
+
+        <!-- Sample Notification 2 -->
+        <div class="notification warning">
+            <div class="title">
+                <span class="icon">⚠️</span> Road Closure Alert
+            </div>
+            <div class="message">
+                Due to an accident, the main highway near the city center is closed until further notice.
+            </div>
+            <div class="date">
+                Date: 2024-12-23 | Time: 2:00 PM
+            </div>
+        </div>
+
+        <!-- Sample Notification 3 -->
+        <div class="notification info">
+            <div class="title">
+                <span class="icon">ℹ️</span> Traffic Update
+            </div>
+            <div class="message">
+                Traffic is moving slowly on Highway 101 due to ongoing roadworks. Expect delays of 15-20 minutes.
+            </div>
+            <div class="date">
+                Date: 2024-12-23 | Time: 11:30 AM
+            </div>
+        </div>
+
+        <!-- Sample Notification 4 -->
+        <div class="notification error">
+            <div class="title">
+                <span class="icon">❌</span> Incident Report Failure
+            </div>
+            <div class="message">
+                We were unable to process your incident report due to an error. Please try again later.
+            </div>
+            <div class="date">
+                Date: 2024-12-23 | Time: 10:15 AM
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <a href="#">« First</a>
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">Next »</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+{% load custom_filters %}  <!-- Load custom filter for officer name -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Police List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            padding: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4a00e0;
+        }
+
+        .police-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .police-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .police-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .police-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .police-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .police-details {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .police-location {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .star-rating {
+            color: #ffcc00;
+            margin-bottom: 10px;
+        }
+
+        .star-rating i {
+            margin-right: 3px;
+        }
+
+        .card-footer {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .view-button {
+            background-color: #4a00e0;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .view-button:hover {
+            background-color: #5f2ce1;
+        }
+
+        .delete-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .delete-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <h2>Traffic Police List</h2>
+
+    <div class="police-list">
+        {% for officer in police %}
+            <div class="police-card">
+                <!-- Officer's Photo with Default Image -->
+                <img src="{% if officer.photo %}{{ officer.photo.url }}{% else %}/static/default-photo.jpg{% endif %}" alt="Officer Photo" class="police-img">
+
+                
+                <!-- Officer's Name -->
+                <div class="police-name">{{ officer.name }}</div>
+                
+                <!-- Officer's Rank and Badge Number -->
+                <div class="police-details">
+                    Rank: {{ officer.rank }}<br>
+                    Badge Number: {{ officer.badge_number }}
+                </div>
+
+                <div class="star-rating">
+                    {% for i in 5|range_filter %}
+                        {% if i < officer.rating %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                
+                
+
+                <!-- Officer's Contact Info -->
+                <div class="police-details">Contact: {{ officer.contact_number }}</div>
+                
+                <!-- Officer's Location -->
+                <div class="police-location">Location: {{ officer.location }}</div>
+
+                <!-- Card Footer with Action Buttons -->
+                <div class="card-footer">
+                    <a href="{% url 'traffic_police_detail' officer.id %}" class="view-button">View Details</a>
+                    <a href="{% url 'traffic_police_delete' officer.id %}" class="delete-button">Delete</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No traffic police officers available.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination (optional, if you want to paginate the officers) -->
+    <div class="pagination">
+        {% if police.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ police.previous_page_number }}">Previous</a>
+        {% endif %}
+        <span>Page {{ police.number }} of {{ police.paginator.num_pages }}</span>
+        {% if police.has_next %}
+            <a href="?page={{ police.next_page_number }}">Next</a>
+            <a href="?page={{ police.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </div>
+</body>
+</html>

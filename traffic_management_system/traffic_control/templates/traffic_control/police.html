@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Police Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label, input, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Traffic Police Management</h1>
+    <form id="policeForm">
+        <label for="policeName">Police Officer Name</label>
+        <input type="text" id="policeName" placeholder="Enter officer name" required>
+        
+        <label for="badgeNumber">Badge Number</label>
+        <input type="text" id="badgeNumber" placeholder="Enter badge number" required>
+
+        <button type="submit">Add Police Officer</button>
+    </form>
+
+    <h2>Registered Traffic Police</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Officer Name</th>
+                <th>Badge Number</th>
+            </tr>
+        </thead>
+        <tbody id="policeTable">
+            <!-- Dynamic rows -->
+        </tbody>
+    </table>
+    <script>
+        const policeForm = document.getElementById('policeForm');
+        const policeTable = document.getElementById('policeTable');
+        let policeCount = 0;
+
+        policeForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const policeName = document.getElementById('policeName').value;
+            const badgeNumber = document.getElementById('badgeNumber').value;
+
+            policeCount++;
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${policeCount}</td>
+                <td>${policeName}</td>
+                <td>${badgeNumber}</td>
+            `;
+            policeTable.appendChild(row);
+
+            policeForm.reset();
+        });
+    </script>
+</body>
+</html>

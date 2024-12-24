@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    {% load static %}
+    <style>
+        /* General body styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("{% static 'images/traffic_management_bg1.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #fff;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Header styling (clean, without background) */
+        header {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Light text shadow */
+        }
+
+        /* Main content box */
+        .content {
+            background: rgba(255, 255, 255, 0.2); /* Transparent white */
+            color: #fff;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+        }
+
+        .content h2 {
+            color: #ffdb58;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .content p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        /* Button styling */
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .buttons a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: rgba(74, 0, 224, 0.7); /* Semi-transparent purple */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .buttons a:hover {
+            background-color: rgba(106, 27, 226, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* Footer styling (clean, no black background) */
+        footer {
+            color: #fff;
+            font-size: 0.9em;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Clean Title at the Top -->
+    <header>
+        <h1>Welcome to the Traffic Management System</h1>
+    </header>
+
+    <!-- Main Transparent Content -->
+    <div class="content">
+        <h2>About Our System</h2>
+        <p>
+            Our Traffic Management System is designed to optimize traffic flow and reduce congestion in urban areas. 
+            It features real-time monitoring, dynamic traffic light controls, and AI-powered decision-making.
+        </p>
+
+        <p>Logged in as: <strong>{{ user.username }}</strong></p>
+
+        <div class="buttons">
+            <a href="{% url 'login' %}">ENTER</a>
+        </div>
+    </div>
+
+    <!-- Clean Footer -->
+    <footer>
+        &copy; 2024 Traffic Management System. All rights reserved.
+    </footer>
+</body>
+</html>

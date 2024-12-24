@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js for visualization -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-top: 30px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            display: inline-block;
+            width: 24%;
+            margin-right: 1%;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card .card-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card .card-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .charts-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .chart-container {
+            width: 48%;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card {
+                width: 48%;
+            }
+
+            .chart-container {
+                width: 100%;
+            }
+        }
+
+        /* Pagination and Buttons */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            font-size: 16px;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            color: #007bff;
+            padding: 10px;
+            margin: 0 5px;
+            border-radius: 5px;
+            border: 1px solid #007bff;
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Traffic Analytics Dashboard</h1>
+
+    <div class="container">
+
+        <!-- Overview Cards -->
+        <div class="card">
+            <div class="card-title">Total Road Incidents</div>
+            <div class="card-value">150</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Active Traffic Reports</div>
+            <div class="card-value">45</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Roads Affected</div>
+            <div class="card-value">12</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Average Congestion (km)</div>
+            <div class="card-value">7.5</div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-container">
+            <!-- Traffic Trend Chart -->
+            <div class="chart-container">
+                <canvas id="trafficTrendChart"></canvas>
+            </div>
+
+            <!-- Officer Performance Chart -->
+            <div class="chart-container">
+                <canvas id="officerPerformanceChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="#">« First</a>
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">Next »</a>
+        </div>
+
+    </div>
+
+    <script>
+        // Traffic Trend Chart
+        const trafficTrendCtx = document.getElementById('trafficTrendChart').getContext('2d');
+        const trafficTrendChart = new Chart(trafficTrendCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                datasets: [{
+                    label: 'Traffic Congestion (km)',
+                    data: [5, 7, 9, 6, 8, 10, 12],
+                    borderColor: '#007bff',
+                    backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                }
+            }
+        });
+
+        // Officer Performance Chart
+        const officerPerformanceCtx = document.getElementById('officerPerformanceChart').getContext('2d');
+        const officerPerformanceChart = new Chart(officerPerformanceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Officer 1', 'Officer 2', 'Officer 3', 'Officer 4', 'Officer 5'],
+                datasets: [{
+                    label: 'Reports Handled',
+                    data: [25, 18, 30, 22, 15],
+                    backgroundColor: '#28a745',
+                    borderColor: '#218838',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
