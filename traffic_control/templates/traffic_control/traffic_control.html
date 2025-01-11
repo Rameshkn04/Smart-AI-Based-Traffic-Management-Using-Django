@@ -1,0 +1,370 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Traffic Management System</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #7f8c8d;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 150px 1fr;
+            grid-template-rows: 1fr 150px 1fr;
+            height: 100vh;
+            position: relative;
+            background-image: url("{% static 'images/Intersection1.jpg' %}");
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .video-feed {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        video {
+            width: 70%;
+            height: 70%;
+            border: 2px solid white;
+        }
+
+        #video1 {
+            top: -7.9%;
+            left: 17.9%;
+            width: 32%;
+            height: 50%;
+        }
+
+        #video2 {
+            top: -7.9%;
+            right: 17.9%;
+            width: 32%;
+            height: 50%;
+        }
+
+        #video3 {
+            bottom: -1.9%;
+            left: 17.9%;
+            width: 32%;
+            height: 50%;
+        }
+
+        #video4 {
+            bottom: -1.9%;
+            right: 17.9%;
+            width: 32%;
+            height: 50%;
+        }
+
+        .file-input-container {
+            position: absolute;
+            bottom: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        input[type="file"] {
+            padding: 5px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .traffic-signal {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 10px;
+        }
+
+        #signal1 {
+            top: -1.9;
+            left: 5%;
+            right: 5%; /* Move closer to the right edge */
+            bottom :5%;
+        }
+
+        #signal3 {
+            top: -1.9;
+            left: 5%;
+            right: 5%; /* Move closer to the right edge */
+            bottom :5%;
+        }
+
+
+        #signal2 {
+            left: auto;
+            right: 10px;
+        }
+
+        #signal4 {
+            top: -1.9;
+            left: auto;
+            right: 5%; /* Move closer to the right edge */
+            bottom: 20%; /* Adjust vertical positioning */
+        }
+
+        .signal-red {
+            background-color: red;
+        }
+
+        .signal-green {
+            background-color: green;
+        }
+
+        .center-calculate {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .calculate-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            position: absolute;
+        }
+
+        .calculate-button:hover {
+            background-color: #2980b9;
+        }
+
+        .file-input-container {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .vehicle-count {
+            font-size: 20px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 5px;
+            border-radius: 5px;
+            margin-top: -40px;
+            z-index: 2;
+            position: relative;
+        }
+
+        video {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; font-size: 24px; margin: 10px 0;">Smart Traffic Management System</h1>
+    <div class="container">
+        <!-- Top-left video -->
+        <div class="video-feed" id="video1">
+            <video controls id="videoElement1"></video>
+            <div class="file-input-container">
+                <input type="file" accept="video/*" id="fileInput1">
+            </div>
+            <div class="traffic-signal signal-red" id="signal1">Stop</div>
+            <div class="vehicle-count" id="vehicleCount1">Vehicles: 0</div>
+        </div>
+
+        <!-- Top-right video -->
+        <div class="video-feed" id="video2">
+            <video controls id="videoElement2"></video>
+            <div class="file-input-container">
+                <input type="file" accept="video/*" id="fileInput2">
+            </div>
+            <div class="traffic-signal signal-red" id="signal2">Stop</div>
+            <div class="vehicle-count" id="vehicleCount2">Vehicles: 0</div>
+        </div>
+
+        <!-- Bottom-left video -->
+        <div class="video-feed" id="video3">
+            <video controls id="videoElement3"></video>
+            <div class="file-input-container">
+                <input type="file" accept="video/*" id="fileInput3">
+            </div>
+            <div class="traffic-signal signal-red" id="signal3">Stop</div>
+            <div class="vehicle-count" id="vehicleCount3">Vehicles: 0</div>
+        </div>
+
+        <!-- Bottom-right video -->
+        <div class="video-feed" id="video4">
+            <video controls id="videoElement4"></video>
+            <div class="file-input-container">
+                <input type="file" accept="video/*" id="fileInput4">
+            </div>
+            <div class="traffic-signal signal-red" id="signal4">Stop</div>
+            <div class="vehicle-count" id="vehicleCount4">Vehicles: 0</div>
+        </div>
+
+        <!-- Center calculate button -->
+        <div class="center-calculate">
+            <button class="calculate-button" id="startButton" onclick="toggleStartStop()">Start</button>
+        </div>
+
+        <!-- Total vehicle count display -->
+        <div id="vehicleCount">Total Vehicles: 0</div>
+    </div>
+
+    <!-- Include TensorFlow.js and COCO-SSD -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+
+    <script>
+        let model;
+        let vehicleCounts = {1: 0, 2: 0, 3: 0, 4: 0};
+        let ambulanceDetected = {1: false, 2: false, 3: false, 4: false};
+        let isStarted = false;
+
+        async function loadModel() {
+            model = await cocoSsd.load();
+            console.log("COCO-SSD model loaded.");
+        }
+
+        // Vehicle and ambulance detection function
+        async function detectVehicles(videoElement, lane) {
+            const predictions = await model.detect(videoElement);
+            let vehicleCount = 0;
+
+            predictions.forEach(prediction => {
+                if (prediction.class === 'car' || prediction.class === 'truck' || prediction.class === 'bus' || prediction.class === 'train') {
+                    vehicleCount++;
+                }
+                if (prediction.class === 'ambulance') {
+                    if (!ambulanceDetected[lane]) { // Check if ambulance was not previously detected
+                        ambulanceDetected[lane] = true;
+                        alert(`Ambulance detected in lane ${lane}`);
+                        playVoiceAlert(`Ambulance detected in lane ${lane}`);
+                    }
+                }
+            });
+
+            vehicleCounts[lane] = Math.min(vehicleCount, 50); // Max 50 vehicles per lane
+            document.getElementById(`vehicleCount${lane}`).innerText = `Vehicles: ${vehicleCounts[lane]}`;
+            document.getElementById('vehicleCount').innerText = `Total Vehicles: ${Object.values(vehicleCounts).reduce((a, b) => a + b, 0)}`;
+        }
+
+        // Voice alert function
+        function playVoiceAlert(message) {
+            const synth = window.speechSynthesis;
+            const utterance = new SpeechSynthesisUtterance(message);
+            utterance.lang = 'en-US';
+            utterance.rate = 1; // Adjust the speed of the voice if needed
+            synth.speak(utterance);
+        }
+
+
+        // Handle video upload
+        function handleVideoUpload(inputId, videoElementId) {
+            const fileInput = document.getElementById(inputId);
+            const videoElement = document.getElementById(videoElementId);
+
+            fileInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const videoURL = URL.createObjectURL(file);
+                    videoElement.src = videoURL;
+                    videoElement.load(); // Ensure the video is loaded
+                }
+            });
+        }
+
+        // Start counting vehicles for a specific lane
+        function startCounting(lane) {
+            const videoElement = document.getElementById(`videoElement${lane}`);
+            setInterval(() => {
+                detectVehicles(videoElement, lane);
+            }, 1000);
+        }
+
+        // Toggle Start/Stop button
+        function toggleStartStop() {
+            const button = document.getElementById('startButton');
+            isStarted = !isStarted;
+            button.innerText = isStarted ? 'Stop' : 'Start';
+            if (isStarted) {
+                startRoundRobin();
+            }
+        }
+
+        // Round Robin video play based on vehicle count or ambulance detection
+        function startRoundRobin() {
+            const lanes = [1, 2, 3, 4];
+
+            function getNextLane() {
+                // Prioritize lanes with ambulance detection
+                for (let lane of lanes) {
+                    if (ambulanceDetected[lane]) {
+                        ambulanceDetected[lane] = false; // Reset ambulance detection
+                        return lane;
+                    }
+                }
+
+                // Sort lanes by vehicle count in descending order
+                return lanes.sort((a, b) => vehicleCounts[b] - vehicleCounts[a])[0];
+            }
+
+            function playNextLane() {
+                if (!isStarted) return;
+
+                const currentLane = getNextLane();
+                const videoElement = document.getElementById(`videoElement${currentLane}`);
+
+                // Play the video of the lane
+                videoElement.play();
+                document.getElementById(`signal${currentLane}`).classList.remove('signal-red');
+                document.getElementById(`signal${currentLane}`).classList.add('signal-green');
+                document.getElementById(`signal${currentLane}`).innerText = 'Go';
+
+                // After 10 seconds, stop the video and reset signal
+                setTimeout(() => {
+                    videoElement.pause();
+                    document.getElementById(`signal${currentLane}`).classList.remove('signal-green');
+                    document.getElementById(`signal${currentLane}`).classList.add('signal-red');
+                    document.getElementById(`signal${currentLane}`).innerText = 'Stop';
+
+                    // Play next lane
+                    setTimeout(playNextLane, 10000);
+                }, 10000); // Play for 10 seconds
+            }
+
+            playNextLane(); // Start the round robin
+        }
+
+        loadModel();
+        handleVideoUpload('fileInput1', 'videoElement1');
+        handleVideoUpload('fileInput2', 'videoElement2');
+        handleVideoUpload('fileInput3', 'videoElement3');
+        handleVideoUpload('fileInput4', 'videoElement4');
+        startCounting(1);
+        startCounting(2);
+        startCounting(3);
+        startCounting(4);
+    </script>
+</body>
+</html>

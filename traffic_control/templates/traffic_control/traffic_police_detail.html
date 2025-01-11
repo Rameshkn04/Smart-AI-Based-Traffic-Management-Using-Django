@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ officer.name }} Details</title>
+</head>
+<body>
+    <h2>{{ officer.name }}'s Details</h2>
+    <img src="{{ officer.photo.url }}" alt="Officer Photo" width="200">
+    <p>Rank: {{ officer.rank }}</p>
+    <p>Badge Number: {{ officer.badge_number }}</p>
+    <p>Contact: {{ officer.contact_number }}</p>
+    <p>Location: {{ officer.location }}</p>
+    <p>Rating:
+        {% for i in 1|to:officer.rating %}
+            <i class="fas fa-star"></i>
+        {% endfor %}
+        {% for i in officer.rating|to:5 %}
+            <i class="far fa-star"></i>
+        {% endfor %}
+    </p>
+    <a href="{% url 'traffic_police_list' %}">Back to Traffic Police List</a>
+</body>
+</html>

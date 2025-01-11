@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Traffic Report</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Submit Traffic Congestion Report</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="road-name" placeholder="Road Name" required><br>
+        <input type="text" name="delay" placeholder="Delay" required><br>
+        <input type="text" name="distance" placeholder="Distance" required><br>
+        <select name="status" required>
+            <option value="">Select Congestion Status</option>
+            <option value="Heavy congestion">Heavy congestion</option>
+            <option value="Moderate congestion">Moderate congestion</option>
+            <option value="Light congestion">Light congestion</option>
+            <option value="No congestion">No congestion</option>
+        </select><br>
+        <select name="officer" required>
+            <option value="">Assign Traffic Police</option>
+            <option value="Officer A">Officer A</option>
+            <option value="Officer B">Officer B</option>
+            <option value="Officer C">Officer C</option>
+            <option value="Officer D">Officer D</option>
+        </select><br>
+        <input type="text" name="location" placeholder="Location" required><br>
+        <a href="{% url 'traffic_police' %}">View Traffic Police Allocation</a>
+        <button type="submit">Submit Report</button>
+    </form>
+</body>
+</html>
