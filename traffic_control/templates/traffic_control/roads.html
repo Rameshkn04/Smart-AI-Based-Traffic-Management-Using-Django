@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busy Roads Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label, input, select, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Busy Roads Report</h1>
+    <form id="trafficForm">
+        <label for="roadName">Road Name</label>
+        <input type="text" id="roadName" placeholder="Enter road name" required>
+
+        <label for="reason">Reason for Congestion</label>
+        <input type="text" id="reason" placeholder="Enter reason" required>
+
+        <label for="date">Date</label>
+        <input type="date" id="date" required>
+
+        <label for="time">Time</label>
+        <input type="time" id="time" required>
+
+        <label for="distance">Congestion Distance (km)</label>
+        <input type="number" id="distance" step="0.1" required>
+
+        <label for="officer">Assign Officer</label>
+        <select id="officer" required>
+            <option value="" disabled selected>Select an officer</option>
+        </select>
+
+        <button type="submit">Add to Report</button>
+    </form>
+
+    <h2>Reported Busy Roads</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Road Name</th>
+                <th>Reason</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Distance (km)</th>
+                <th>Assigned Officer</th>
+            </tr>
+        </thead>
+        <tbody id="trafficTable">
+            <!-- Dynamic rows -->
+        </tbody>
+    </table>
+
+    <script>
+        const trafficForm = document.getElementById('trafficForm');
+        const officerSelect = document.getElementById('officer');
+        const trafficTable = document.getElementById('trafficTable');
+        let trafficCount = 0;
+
+        // Load officers from localStorage
+        const officers = JSON.parse(localStorage.getItem('officers')) || [];
+        officers.forEach(officer => {
+            const option = document.createElement('option');
+            option.value = officer.name;
+            option.textContent = `${officer.name} (Badge: ${officer.badge})`;
+            officerSelect.appendChild(option);
+        });
+
+        // Handle traffic form submission
+        trafficForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const roadName = document.getElementById('roadName').value;
+            const reason = document.getElementById('reason').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const distance = document.getElementById('distance').value;
+            const officer = officerSelect.value;
+
+            trafficCount++;
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${trafficCount}</td>
+                <td>${roadName}</td>
+                <td>${reason}</td>
+                <td>${date}</td>
+                <td>${time}</td>
+                <td>${distance}</td>
+                <td>${officer}</td>
+            `;
+            trafficTable.appendChild(row);
+
+            trafficForm.reset();
+        });
+    </script>
+</body>
+</html>

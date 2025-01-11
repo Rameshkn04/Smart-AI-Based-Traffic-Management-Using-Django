@@ -1,0 +1,156 @@
+<!-- traffic_control/templates/traffic_control/add_traffic_police.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Traffic Police</title>
+    <!-- Linking external CSS for styling -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('https://www.digi.com/getattachment/Applications/Traffic-Management/featured.jpg') no-repeat center center/cover;
+            background-size: cover;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 15px 40px 15px 15px;
+            border: none;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            outline: none;
+        }
+
+        .input-group input::placeholder,
+        .input-group select {
+            color: #555;
+        }
+
+        .input-group i {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        .input-group input[type="file"] {
+            padding: 0;
+        }
+
+        .submit-btn {
+            background-color: #4a00e0;
+            color: white;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #3c00b3;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #4a00e0;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Add Traffic Police Officer</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Officer Name -->
+            <div class="input-group">
+                <input type="text" name="name" placeholder="Officer's Name" required>
+                <i class="fas fa-user"></i>
+            </div>
+
+            <!-- Officer Rank -->
+            <div class="input-group">
+                <input type="text" name="rank" placeholder="Rank" required>
+                <i class="fas fa-trophy"></i>
+            </div>
+
+            <!-- Badge Number -->
+            <div class="input-group">
+                <input type="text" name="badge_number" placeholder="Badge Number" required>
+                <i class="fas fa-id-badge"></i>
+            </div>
+
+            <!-- Contact Number -->
+            <div class="input-group">
+                <input type="text" name="contact_number" placeholder="Contact Number" required>
+                <i class="fas fa-phone"></i>
+            </div>
+
+            <!-- Officer Image Upload (Optional) -->
+            <div class="input-group">
+                <input type="file" name="image" accept="image/*">
+                <i class="fas fa-camera"></i>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">Add Officer</button>
+        </form>
+
+        <!-- Back Link -->
+        <div class="back-link">
+            <p><a href="{% url 'traffic_police_list' %}">Back to List</a></p>
+        </div>
+    </div>
+
+</body>
+</html>

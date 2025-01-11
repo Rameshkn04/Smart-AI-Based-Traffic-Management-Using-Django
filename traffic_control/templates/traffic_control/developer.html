@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developers</title>
+    {% load static %}
+    <style>
+        /* General Body Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'images/aibg.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center calc(0% - 0px);
+            font-family: Arial, sans-serif;
+        }
+
+        /* Developer Title */
+        .title {
+            text-align: center;
+            font-size: 48px;
+            color: blue;
+            margin: 20px 0;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        /* Developer Cards */
+        .developer-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .developer-card {
+            background-color: rgba(255, 255, 255, 0.8); /* Transparent background */
+            border: 2px solid black;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            width: 30%;
+            padding: 20px;
+            text-align: left;
+            font-weight: bold;
+            line-height: 1.8;
+            position: relative;
+        }
+
+        .developer-card img {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 120px;
+            height: 150px;
+            object-fit: cover;
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+
+        /* Text Color for Each Developer */
+        .developer-card h4 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .developer-card:nth-child(1) h4 { color: blue; }
+        .developer-card:nth-child(2) h4 { color: green; }
+        .developer-card:nth-child(3) h4 { color: purple; }
+    </style>
+</head>
+<body>
+    <!-- Title -->
+    <div class="title">DEVELOPERS</div>
+
+    <!-- Developer Container -->
+    <div class="developer-container">
+        <!-- Developer 1 -->
+        <div class="developer-card">
+            <h4>Hello Buddies...</h4>
+            <p>
+                I am Ramesh KN<br>
+                From Chikmagalur<br>
+                Currently Studying<br>
+                Bachelor of Engineering<br>
+                at CMRIT College<br>
+                AIML Department
+            </p>
+            <img src="{% static 'images/ramesh.jpg' %}" alt="Ramesh KN">
+        </div>
+
+        <!-- Developer 2 -->
+        <div class="developer-card">
+            <h4>Hello Friends...</h4>
+            <p>
+                I am Shivanand<br>
+                From Gokak<br>
+                Currently Studying<br>
+                Bachelor of Engineering<br>
+                at CMRIT College<br>
+                AIML Department
+            </p>
+            <img src="{% static 'images/shivanand.jpg' %}" alt="Shivanand">
+        </div>
+
+        <!-- Developer 3 -->
+        <div class="developer-card">
+            <h4>Hello Guys...</h4>
+            <p>
+                I am Prajwal B Gowda<br>
+                From Mysuru<br>
+                Currently Studying<br>
+                Bachelor of Engineering<br>
+                at CMRIT College<br>
+                AIML Department
+            </p>
+            <img src="{% static 'images/prajwal.jpg' %}" alt="Prajwal B Gowda">
+        </div>
+    </div>
+</body>
+</html>

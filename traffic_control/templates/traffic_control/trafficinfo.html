@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Traffic Info</title>
+</head>
+<body>
+    <h1>Traffic Info - Identify Congested Roads</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Road Name</th>
+                <th>Congestion Level</th>
+                <th>Last Updated</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for road in congested_roads %}
+            <tr>
+                <td>{{ road.road_name }}</td>
+                <td>{{ road.congestion_level }}</td>
+                <td>{{ road.updated_at }}</td>
+                <td>{{ road.description }}</td>
+                <td>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="road_id" value="{{ road.id }}">
+                        <textarea name="message" placeholder="Message to traffic police" required></textarea>
+                        <input type="text" name="sent_by" placeholder="Your Name/ID">
+                        <button type="submit">Send Report</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No congested roads reported.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

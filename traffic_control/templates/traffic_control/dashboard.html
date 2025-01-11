@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* General Reset */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url("{% static 'images/dashboard_bg1.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #4a00e0;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            background-color: #ff4b5c;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #e63946;
+        }
+
+        /* Dashboard Content */
+        .dashboard-container {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .dashboard-container h3 {
+            font-size: 30px;
+            color: #c11616;
+            margin-bottom: 20px;
+        }
+
+        /* Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* Card Styling */
+        .card {
+            background: rgba(255, 255, 255, 0.7); /* Transparent white */
+            border: 1px solid rgba(0, 0, 0, 0.1); /* Light border */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+
+        .card h4 {
+            margin: 10px 0 0;
+            font-size: 18px;
+            color: #4a00e0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8); /* Dark transparent background */
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 14px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        footer .footer-links a {
+            color: #ff6f61;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        footer .footer-links a:hover {
+            color: #ff4b5c;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h2>Traffic Management System</h2>
+        <a href="{% url 'login' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <h3>Welcome to the Dashboard</h3>
+        <div class="grid-container">
+            <!-- Dashboard Cards -->
+            <a href="{% url 'traffic_control' %}" class="card">
+                <img src="{% static 'images/traffic_control1.png' %}" alt="Traffic Control">
+                <h4>Traffic Control</h4>
+            </a>
+            <a href="{% url 'TrafficMap' %}" class="card">
+                <img src="{% static 'images/settings1.png' %}" alt="Traffic Map">
+                <h4>Traffic Map</h4>
+            </a>
+            <a href="{% url 'reports' %}" class="card">
+                <img src="{% static 'images/reports2.png' %}" alt="Reports">
+                <h4>Reports</h4>
+            </a>
+            <a href="{% url 'user_management' %}" class="card">
+                <img src="{% static 'images/traffic_police_icon.png' %}" alt="User Management">
+                <h4>Traffic Police Details</h4>
+            </a>
+            <a href="{% url 'notifications' %}" class="card">
+                <img src="{% static 'images/notification3.png' %}" alt="Notifications">
+                <h4>Notifications</h4>
+            </a>
+            <a href="{% url 'analytics' %}" class="card">
+                <img src="{% static 'images/analytics1.jpg' %}" alt="Analytics">
+                <h4>Analytics</h4>
+            </a>
+            <a href="{% url 'help_support' %}" class="card">
+                <img src="{% static 'images/help_support1.png' %}" alt="Help & Support">
+                <h4>Help & Support</h4>
+            </a>
+            <a href="{% url 'profile' %}" class="card">
+                <img src="{% static 'images/devloper.png' %}" alt="Profile">
+                <h4>Developer</h4>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Traffic Management System. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="{% url 'help_support' %}">Help & Support</a> |
+            <a href="{% url 'profile' %}">Profile</a> |
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms of Service</a>
+        </div>
+    </footer>
+
+</body>
+</html>

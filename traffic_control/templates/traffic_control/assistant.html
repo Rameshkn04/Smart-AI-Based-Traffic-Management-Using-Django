@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .chat-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .messages {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+
+        .message {
+            margin: 5px 0;
+        }
+
+        .user-message {
+            text-align: right;
+            color: #4a00e0;
+        }
+
+        .bot-message {
+            text-align: left;
+            color: #333;
+        }
+
+        .input-box {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-box input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .input-box button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #4a00e0;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .input-box button:hover {
+            background-color: #5f2ce1;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-box">
+        <h2>Assistant</h2>
+        <div class="messages" id="messages">
+            <div class="bot-message">Hello! I'm here to help. Type "Call [Location] traffic police" to contact an officer.</div>
+        </div>
+        <div class="input-box">
+            <input type="text" id="user-input" placeholder="Type your message here...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            const messages = document.getElementById('messages');
+
+            // Append user's message
+            const userMessage = document.createElement('div');
+            userMessage.classList.add('message', 'user-message');
+            userMessage.innerText = userInput;
+            messages.appendChild(userMessage);
+
+            // Clear input field
+            document.getElementById('user-input').value = '';
+
+            // Send message to backend
+            fetch('/get-response/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: `user_input=${encodeURIComponent(userInput)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Append bot's response
+                const botMessage = document.createElement('div');
+                botMessage.classList.add('message', 'bot-message');
+                botMessage.innerText = data.response;
+                messages.appendChild(botMessage);
+                messages.scrollTop = messages.scrollHeight;
+            });
+        }
+    </script>
+</body>
+</html>
